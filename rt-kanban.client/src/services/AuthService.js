@@ -22,5 +22,5 @@ AuthService.on(AuthService.AUTH_EVENTS.AUTHENTICATED, async function() {
   setBearer(AuthService.bearer)
   await profileService.getProfile()
   AppState.user = AuthService.user
-  router.push({ name: 'Profile' })
+  // router.push({ name: 'Profile' })
 })

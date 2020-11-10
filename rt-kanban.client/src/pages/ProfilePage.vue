@@ -1,26 +1,28 @@
 <template>
   <div class="about container-fluid">
     <div class="row text-center justify-content-center">
-      <div class="col-4">
+      <div class="col-12">
         <h1>Welcome {{ profile.name }}</h1>
         <img class="rounded" :src="profile.picture" alt="" />
         <p>{{ profile.email }}</p>
       </div>
     </div>
-    <div class="row justify-content-center">
-      <div class="col-3">
-        <form @submit.prevent="createBoard" class="form-group">
+    <div class="row text-center justify-content-center">
+      <div class="col-4">
+        <form @submit.prevent="createBoard" class="form-group d-flex">
           <input type="text"
                  class="form-control"
                  aria-describedby="helpId"
                  placeholder="Board Title"
                  v-model="state.newBoard.title"
           >
-          <button type="submit" class="btn btn-success">
+          <button type="submit" class="btn btn-success ml-2">
             Create
           </button>
         </form>
       </div>
+    </div>
+    <div class="row">
       <board-component v-for="board in boards" :key="board._id" :board-prop="board" />
     </div>
   </div>

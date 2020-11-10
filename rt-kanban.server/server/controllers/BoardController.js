@@ -9,6 +9,7 @@ export class BoardController extends BaseController {
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('/profile', this.getUserBoards)
+      .get('/:boardId', this.getActiveBoard)
       .post('', this.create)
       .put('/:boardId', this.edit)
       .delete('/:boardId', this.delete)
@@ -16,7 +17,8 @@ export class BoardController extends BaseController {
 
   async delete(req, res, next) {
     try {
-      res.send(await boardService.delete(req.params.boardId))
+      let currentUser = req.userInfo.id
+      res.send(await boardService.delete(req.params.boardId, currentUser))
     } catch (error) {
       next(error)
     }
@@ -24,7 +26,8 @@ export class BoardController extends BaseController {
 
   async edit(req, res, next) {
     try {
-      res.send(await boardService.edit(req.body, req.params.boardId))
+      let currentUser = req.userInfo.id
+      res.send(await boardService.edit(req.body, req.params.boardId, currentUser))
     } catch (error) {
       next(error)
     }
@@ -42,6 +45,14 @@ export class BoardController extends BaseController {
   async getUserBoards(req, res, next) {
     try {
       res.send(await boardService.getUserBoards(req.userInfo.id))
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getActiveBoard(req, res, next) {
+    try {
+      res.send(await boardService.findById(req.params.boardId, req.userInfo.id))
     } catch (error) {
       next(error)
     }

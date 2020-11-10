@@ -19,6 +19,32 @@ class BoardService {
       console.error(error)
     }
   }
-}
 
+  async editBoard(body, id) {
+    try {
+      await api.put('api/boards/' + id, body)
+      this.getUserBoards()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async deleteBoard(id) {
+    try {
+      await api.delete('api/boards/' + id)
+      this.getUserBoards()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async getActiveBoard(id) {
+    try {
+      const res = await api.get('api/boards/' + id)
+      AppState.activeBoard = res.data
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
 export const boardService = new BoardService()
