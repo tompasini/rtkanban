@@ -1,19 +1,21 @@
 <template>
   <div class="board-component col-3 bg-light border-rounded shadow p-3 m-3">
-    <h3 @click="getActiveBoard(board._id)" class="mb-4">
-      {{ board.title }}
-    </h3>
+    <div class="d-flex justify-content-between">
+      <h3 @click="getActiveBoard(board._id)" class="mb-4">
+        {{ board.title }}
+      </h3>
+      <button class="btn btn-danger p-1 h-75" @click="deleteBoard(board._id)">
+        Delete
+      </button>
+    </div>
     <div>
-      <form @submit.prevent="editBoard(board._id)">
-        <input type="text" v-model="state.editedBoard.title">
-        <button type="submit" class="btn btn-warning ml-2">
+      <form @submit.prevent="editBoard(board._id)" class="d-flex justify-content-between">
+        <input type="text" v-model="state.editedBoard.title" placeholder="Board Title">
+        <button type="submit" class="btn btn-warning">
           Edit
         </button>
       </form>
     </div>
-    <button class="btn btn-danger mt-4" @click="deleteBoard(board._id)">
-      Delete
-    </button>
   </div>
 </template>
 

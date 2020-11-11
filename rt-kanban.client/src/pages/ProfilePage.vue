@@ -7,7 +7,7 @@
         <p>{{ profile.email }}</p>
       </div>
     </div>
-    <div class="row text-center justify-content-center">
+    <div class="row text-center justify-content-center border-bottom mb-3">
       <div class="col-4">
         <form @submit.prevent="createBoard" class="form-group d-flex">
           <input type="text"
@@ -22,7 +22,7 @@
         </form>
       </div>
     </div>
-    <div class="row">
+    <div class="row justify-content-around">
       <board-component v-for="board in boards" :key="board._id" :board-prop="board" />
     </div>
   </div>
