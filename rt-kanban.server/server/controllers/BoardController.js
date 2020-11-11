@@ -17,7 +17,7 @@ export class BoardController extends BaseController {
 
   async delete(req, res, next) {
     try {
-      let currentUser = req.userInfo.id
+      const currentUser = req.userInfo.id
       res.send(await boardService.delete(req.params.boardId, currentUser))
     } catch (error) {
       next(error)
@@ -26,7 +26,7 @@ export class BoardController extends BaseController {
 
   async edit(req, res, next) {
     try {
-      let currentUser = req.userInfo.id
+      const currentUser = req.userInfo.id
       res.send(await boardService.edit(req.body, req.params.boardId, currentUser))
     } catch (error) {
       next(error)

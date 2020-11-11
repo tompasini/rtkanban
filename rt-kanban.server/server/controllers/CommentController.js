@@ -1,23 +1,23 @@
 import express from 'express'
 import BaseController from '../utils/BaseController'
-import { listService } from '../services/ListService'
+import { commentService } from '../services/CommentService'
 import { Auth0Provider } from '@bcwdev/auth0provider'
 
-export class ListController extends BaseController {
+export class CommentController extends BaseController {
   constructor() {
-    super('api/lists')
+    super('api/comments')
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
-      .get('/:boardId', this.getBoardLists)
-      .post('/:boardId', this.create)
-      .put('/:listId', this.edit)
-      .delete('/:listId', this.delete)
+      .get('/:taskId', this.getTaskComments)
+      .post('/:taskId', this.create)
+      .put('/:commentId', this.edit)
+      .delete('/:commentId', this.delete)
   }
 
   async delete(req, res, next) {
     try {
       const currentUser = req.userInfo.id
-      res.send(await listService.delete(req.params.listId, currentUser))
+      res.send(await commentService.delete(req.params.commentId, currentUser))
     } catch (error) {
       next(error)
     }
@@ -26,7 +26,7 @@ export class ListController extends BaseController {
   async edit(req, res, next) {
     try {
       const currentUser = req.userInfo.id
-      res.send(await listService.edit(req.body, req.params.listId, currentUser))
+      res.send(await commentService.edit(req.body, req.params.commentId, currentUser))
     } catch (error) {
       next(error)
     }
@@ -35,17 +35,17 @@ export class ListController extends BaseController {
   async create(req, res, next) {
     try {
       req.body.creatorId = req.userInfo.id
-      req.body.board = req.params.boardId
-      res.send(await listService.create(req.body, req.params.boardId))
+      req.body.task = req.params.taskId
+      res.send(await commentService.create(req.body, req.params.taskId))
     } catch (error) {
       next(error)
     }
   }
 
-  async getBoardLists(req, res, next) {
+  async getTaskComments(req, res, next) {
     try {
       const currentUser = req.userInfo.id
-      res.send(await listService.getBoardLists(req.params.boardId, currentUser))
+      res.send(await commentService.getTaskComments(req.params.taskId, currentUser))
     } catch (error) {
       next(error)
     }

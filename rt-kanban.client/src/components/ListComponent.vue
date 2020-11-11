@@ -18,33 +18,52 @@
     </div>
     <div class="p-3">
       <h5>Tasks</h5>
+      <div>
+        <form @submit.prevent="createTask(list._id)" class="d-flex">
+          <input type="text" v-model="state.newTask.title" placeholder="New Task Title">
+          <button type="submit" class="btn btn-success ml-3">
+            Create Task
+          </button>
+        </form>
+      </div>
       <div class="row">
-        <TaskComponent />
+        <TaskComponent v-for="task in tasks" :key="task._id" :task-prop="task" :list-id="list._id" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { computed, reactive } from 'vue'
+import { computed, reactive, onMounted } from 'vue'
+import { AppState } from '../AppState'
 import { listService } from '../services/ListService'
+import { taskService } from '../services/TaskService'
 export default {
   name: 'ListComponent',
   props: {
     listProp: Object
   },
   setup(props) {
+    onMounted(async() => {
+      await taskService.getTasksByList(props.listProp._id)
+    })
     const state = reactive({
-      editedList: {}
+      editedList: {},
+      newTask: {}
     })
     return {
       state,
       list: computed(() => props.listProp),
+      tasks: computed(() => AppState.tasks[props.listProp._id]),
       editList(listId, board) {
         listService.editList(state.editedList, listId, board)
       },
       deleteList(listId, board) {
         listService.deleteList(listId, board)
+      },
+      createTask(listId) {
+        state.newTask.list = listId
+        taskService.createTask(listId, state.newTask)
       }
     }
   },

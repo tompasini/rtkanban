@@ -1,23 +1,23 @@
 import express from 'express'
 import BaseController from '../utils/BaseController'
-import { listService } from '../services/ListService'
+import { taskService } from '../services/TaskService'
 import { Auth0Provider } from '@bcwdev/auth0provider'
 
-export class ListController extends BaseController {
+export class TaskController extends BaseController {
   constructor() {
-    super('api/lists')
+    super('api/tasks')
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
-      .get('/:boardId', this.getBoardLists)
-      .post('/:boardId', this.create)
-      .put('/:listId', this.edit)
-      .delete('/:listId', this.delete)
+      .get('/:listId', this.getListTasks)
+      .post('/:listId', this.create)
+      .put('/:taskId', this.edit)
+      .delete('/:taskId', this.delete)
   }
 
   async delete(req, res, next) {
     try {
       const currentUser = req.userInfo.id
-      res.send(await listService.delete(req.params.listId, currentUser))
+      res.send(await taskService.delete(req.params.taskId, currentUser))
     } catch (error) {
       next(error)
     }
@@ -26,7 +26,7 @@ export class ListController extends BaseController {
   async edit(req, res, next) {
     try {
       const currentUser = req.userInfo.id
-      res.send(await listService.edit(req.body, req.params.listId, currentUser))
+      res.send(await taskService.edit(req.body, req.params.taskId, currentUser))
     } catch (error) {
       next(error)
     }
@@ -35,17 +35,17 @@ export class ListController extends BaseController {
   async create(req, res, next) {
     try {
       req.body.creatorId = req.userInfo.id
-      req.body.board = req.params.boardId
-      res.send(await listService.create(req.body, req.params.boardId))
+      req.body.list = req.params.listId
+      res.send(await taskService.create(req.body, req.params.listId))
     } catch (error) {
       next(error)
     }
   }
 
-  async getBoardLists(req, res, next) {
+  async getListTasks(req, res, next) {
     try {
       const currentUser = req.userInfo.id
-      res.send(await listService.getBoardLists(req.params.boardId, currentUser))
+      res.send(await taskService.getListTasks(req.params.listId, currentUser))
     } catch (error) {
       next(error)
     }
