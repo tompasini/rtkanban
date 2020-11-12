@@ -8,7 +8,7 @@
         <form @submit.prevent="createList(board._id)" class="d-flex">
           <input type="text" v-model="state.newList.title" placeholder="New List Title">
           <button type="submit" class="btn btn-success ml-3">
-            Create List
+            <i class="far fa-plus-square"></i>
           </button>
         </form>
       </div>
@@ -53,5 +53,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 </style>

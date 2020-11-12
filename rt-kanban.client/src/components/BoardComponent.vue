@@ -1,18 +1,18 @@
 <template>
-  <div class="board-component col-3 bg-light border-rounded shadow p-3 m-3">
+  <div class="board-component col-3 light border-rounded shadow p-3 m-3">
     <div class="d-flex justify-content-between">
-      <h3 @click="getActiveBoard(board._id)" class="mb-4">
+      <h3 @click="getActiveBoard(board._id)" class="pointer mb-4">
         {{ board.title }}
       </h3>
       <button class="btn btn-danger p-1 h-75" @click="deleteBoard(board._id)">
-        Delete
+        <i class="far fa-trash-alt"></i>
       </button>
     </div>
     <div>
       <form @submit.prevent="editBoard(board._id)" class="d-flex justify-content-between">
         <input type="text" v-model="state.editedBoard.title" placeholder="Board Title">
         <button type="submit" class="btn btn-warning">
-          Edit
+          <i class="far fa-edit"></i>
         </button>
       </form>
     </div>
@@ -55,5 +55,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.light {
+  background-color: #dcd8b2;
+}
+.pointer {
+  cursor: pointer;
+}
 </style>

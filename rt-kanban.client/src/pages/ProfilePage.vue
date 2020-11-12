@@ -17,7 +17,7 @@
                  v-model="state.newBoard.title"
           >
           <button type="submit" class="btn btn-success ml-2">
-            Create
+            <i class="far fa-plus-square"></i>
           </button>
         </form>
       </div>
@@ -56,5 +56,8 @@ export default {
 <style scoped>
 img {
   max-width: 100px;
+}
+.light {
+  background-color: #dcd8b2;
 }
 </style>

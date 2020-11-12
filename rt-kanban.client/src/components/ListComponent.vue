@@ -1,17 +1,17 @@
 <template>
-  <div class="ListComponent d-flex flex-column col-3 bg-light border-rounded shadow m-3">
+  <div class="ListComponent d-flex flex-column col-3 light border-rounded shadow m-3">
     <div class="border-bottom p-3">
       <div class="d-flex justify-content-between align-items-center mb-2">
         <h3> {{ list.title }} </h3>
         <button class="btn btn-sm btn-danger p-1 h-75" @click="deleteList(list._id, list.board)">
-          Delete
+          <i class="far fa-trash-alt"></i>
         </button>
       </div>
       <div>
         <form @submit.prevent="editList(list._id, list.board)" class="d-flex justify-content-between">
           <input type="text" v-model="state.editedList.title" placeholder="List Title" class="narrow">
           <button type="submit" class="btn btn-warning p-1">
-            Edit
+            <i class="far fa-edit"></i>
           </button>
         </form>
       </div>
@@ -20,9 +20,9 @@
       <h5>Tasks</h5>
       <div>
         <form @submit.prevent="createTask(list._id)" class="d-flex">
-          <input type="text" v-model="state.newTask.title" placeholder="New Task Title">
-          <button type="submit" class="btn btn-success ml-3">
-            Create Task
+          <input type="text" v-model="state.newTask.title" placeholder="New Task Title" class="h-75">
+          <button type="submit" class="btn btn-success ml-3 h-75">
+            <i class="far fa-plus-square"></i>
           </button>
         </form>
       </div>
@@ -32,7 +32,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import { computed, reactive, onMounted } from 'vue'
 import { AppState } from '../AppState'
@@ -70,9 +69,11 @@ export default {
   components: {}
 }
 </script>
-
 <style lang="scss" scoped>
   .narrow{
     width: 75%;
   }
+  .light {
+  background-color: #e4b0d9;
+}
 </style>

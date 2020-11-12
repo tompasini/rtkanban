@@ -9,6 +9,7 @@ export class TaskController extends BaseController {
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('/:listId', this.getListTasks)
+      .get('/comments/:taskId', this.getActiveTask)
       .post('/:listId', this.create)
       .put('/:taskId', this.edit)
       .delete('/:taskId', this.delete)
@@ -46,6 +47,14 @@ export class TaskController extends BaseController {
     try {
       const currentUser = req.userInfo.id
       res.send(await taskService.getListTasks(req.params.listId, currentUser))
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getActiveTask(req, res, next) {
+    try {
+      res.send(await taskService.findById(req.params.taskId, req.userInfo.id))
     } catch (error) {
       next(error)
     }

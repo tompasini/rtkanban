@@ -1,25 +1,41 @@
 <template>
-  <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    <img src="https://bcw.blob.core.windows.net/public/img/8600856373152463" alt="CodeWorks Logo">
-    <h1 class="my-5 bg-dark text-light p-3 rounded d-flex align-items-center">
-      <span class="mx-2 text-white">Vue 3 Starter</span>
-    </h1>
+  <div class="Home container-fluid">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-6 align-self-center text-center homeCard border-rounded shadow" v-if="profile.id" @click="getBoards">
+        <h1>Manage Your Boards</h1>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import { computed } from 'vue'
+import { AppState } from '../AppState'
+import { useRouter } from 'vue-router'
 export default {
-  name: 'Home'
+  name: 'Home',
+  setup() {
+    const router = useRouter()
+    return {
+      profile: computed(() => AppState.profile),
+      user: computed(() => AppState.user),
+      getBoards() {
+        router.push({ name: 'Profile' })
+      }
+    }
+  },
+  components: {}
 }
 </script>
 
-<style scoped lang="scss">
-.home{
-  text-align: center;
-  user-select: none;
-  > img{
-    height: 200px;
-    width: 200px;
-  }
+<style lang="scss" scoped>
+.homeCard {
+  background-color: #faa650;
+  padding: 2em;
+  border-radius: 10px;
+}
+
+.homeCard:hover {
+  cursor: pointer;
 }
 </style>

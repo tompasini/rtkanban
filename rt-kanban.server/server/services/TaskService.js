@@ -10,6 +10,7 @@ class TaskService {
     if (poster !== userId) {
       throw new BadRequest('You are not the creator of this task')
     }
+    await dbContext.Comment.deleteMany({ task: taskId })
     return await dbContext.Task.findByIdAndDelete(taskId)
   }
 

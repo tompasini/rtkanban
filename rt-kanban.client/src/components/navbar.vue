@@ -2,11 +2,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
-        <img
-          alt="logo"
-          src="../assets/img/cw-logo.png"
-          height="45"
-        />
+        <i class="fas fa-jedi"></i>
       </div>
     </router-link>
     <button
@@ -42,7 +38,7 @@
           Login
         </button>
 
-        <div class="dropdown" v-else>
+        <div class="dropdown pointer" v-else>
           <div
             class="dropdown-toggle"
             @click="state.dropOpen = !state.dropOpen"
@@ -123,5 +119,8 @@ a:hover {
 }
 .nav-item .nav-link.router-link-exact-active{
   color: var(--primary);
+}
+.pointer {
+  cursor: pointer;
 }
 </style>

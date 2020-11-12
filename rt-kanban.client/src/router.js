@@ -27,6 +27,12 @@ const routes = [
     name: 'Board',
     component: loadPage('BoardPage'),
     beforeEnter: authGuard
+  },
+  {
+    path: '/comments/:id',
+    name: 'Comments',
+    component: loadPage('CommentPage'),
+    beforeEnter: authGuard
   }
 ]
 
