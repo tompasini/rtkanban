@@ -1,5 +1,6 @@
 import { api } from './AxiosService'
 import { AppState } from '../AppState'
+import { logger } from '../utils/Logger'
 
 class BoardService {
   async getUserBoards() {
@@ -7,7 +8,7 @@ class BoardService {
       const res = await api.get('api/boards/profile')
       AppState.boards = res.data
     } catch (error) {
-      console.error(error)
+      logger.error(error)
     }
   }
 
@@ -16,7 +17,7 @@ class BoardService {
       await api.post('api/boards', body)
       this.getUserBoards()
     } catch (error) {
-      console.error(error)
+      logger.error(error)
     }
   }
 
@@ -25,7 +26,7 @@ class BoardService {
       await api.put('api/boards/' + id, body)
       this.getUserBoards()
     } catch (error) {
-      console.error(error)
+      logger.error(error)
     }
   }
 
@@ -34,7 +35,7 @@ class BoardService {
       await api.delete('api/boards/' + id)
       this.getUserBoards()
     } catch (error) {
-      console.error(error)
+      logger.error(error)
     }
   }
 
@@ -43,7 +44,7 @@ class BoardService {
       const res = await api.get('api/boards/' + id)
       AppState.activeBoard = res.data
     } catch (error) {
-      console.error(error)
+      logger.error(error)
     }
   }
 }

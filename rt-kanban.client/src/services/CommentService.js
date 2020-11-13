@@ -1,5 +1,6 @@
 import { api } from './AxiosService'
 import { AppState } from '../AppState'
+import { logger } from '../utils/Logger'
 
 class CommentService {
   async getCommentsByTask(taskId) {
@@ -7,7 +8,7 @@ class CommentService {
       const res = await api.get('api/comments/' + taskId)
       AppState.comments[taskId] = res.data
     } catch (error) {
-      console.error(error)
+      logger.error(error)
     }
   }
 
@@ -16,7 +17,7 @@ class CommentService {
       const res = await api.get('api/tasks/comments/' + taskId)
       AppState.activeTask = res.data
     } catch (error) {
-      console.error(error)
+      logger.error(error)
     }
   }
 
@@ -25,7 +26,7 @@ class CommentService {
       await api.post('api/comments/' + taskId, body)
       this.getCommentsByTask(taskId)
     } catch (error) {
-      console.error(error)
+      logger.error(error)
     }
   }
 
@@ -34,7 +35,7 @@ class CommentService {
       await api.delete('api/comments/' + id)
       this.getCommentsByTask(id)
     } catch (error) {
-      console.error(error)
+      logger.error(error)
     }
   }
 }
