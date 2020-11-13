@@ -27,7 +27,7 @@ export default class Startup {
             styleSrc: ["'self'", '*.fontawesome.com', 'https://fonts.googleapis.com', "'unsafe-inline'"],
             imgSrc: ["'self'", '*.githubusercontent.com', '*.blob.core.windows.net'],
             connectSrc: ["'self'", `https://${domain}/oauth/token`, `https://${domain}/userinfo`],
-            fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+            fontSrc: ["'self'", 'https://fonts.gstatic.com', '*.fontawesome.com'],
             objectSrc: ["'self'"],
             mediaSrc: ["'self'"],
             frameSrc: ["'self'", `https://${domain}`]
